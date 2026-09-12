@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DIPLÔME.CD</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        DIPLÔME<span>.CD</span>
+    </div>
+
+    <a href="{{ url_for('login') }}" class="admin-link">
+        Administration
+    </a>
+
+</header>
+
+
+<main class="hero">
+
+    <div class="scientific-decoration">
+        ◇ · · · ◇ · · · ◇
+    </div>
+
+    <p class="eyebrow">
+        CERTIFICATION • TECHNOLOGIE • ÉDUCATION
+    </p>
+
+    <h1>
+        Vos attestations<br>
+        <span>numériques et vérifiables.</span>
+    </h1>
+
+    <p class="hero-text">
+        DIPLÔME.CD est une plateforme numérique destinée
+        à la publication et à la consultation des attestations
+        de réussite.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="{{ url_for('login') }}"
+           class="btn primary">
+            Espace administrateur
+        </a>
+
+    </div>
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◈
+            </div>
+
+            <h3>
+                Attestations numériques
+            </h3>
+
+            <p>
+                Consultez une attestation directement
+                depuis son lien unique.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⟡
+            </div>
+
+            <h3>
+                Lien direct
+            </h3>
+
+            <p>
+                Chaque attestation possède sa propre
+                adresse Internet.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⌁
+            </div>
+
+            <h3>
+                Consultation rapide
+            </h3>
+
+            <p>
+                Un QR Code créé par l'administrateur
+                peut ouvrir directement l'attestation.
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © 2026 DIPLÔME.CD
+    <span>•</span>
+    Plateforme numérique de certification
+
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% if attestation %}
+            {{ attestation["numero"] }} - DIPLÔME.CD
+        {% else %}
+            Attestation introuvable
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="certificate-page">
+
+{% if attestation %}
+
+<div class="certificate-container">
+
+    <div class="certificate-header">
+
+        <div class="logo">
+            DIPLÔME<span>.CD</span>
+        </div>
+
+        <div class="verified">
+            ✓ ATTESTATION PUBLIÉE
+        </div>
+
+    </div>
+
+
+    <div class="certificate-content">
+
+        <p class="eyebrow">
+            DOCUMENT NUMÉRIQUE
+        </p>
+
+        <h1>
+            ATTESTATION DE RÉUSSITE
+        </h1>
+
+        <div class="line"></div>
+
+
+        <p class="certificate-intro">
+            La présente attestation certifie que
+        </p>
+
+
+        <h2 class="beneficiary">
+            {{ attestation["nom"] }}
+        </h2>
+
+
+        <p class="certificate-intro">
+            a satisfait aux exigences de la formation
+        </p>
+
+
+        <h3>
+            {{ attestation["formation"] }}
+        </h3>
+
+
+        <div class="details">
+
+            <div>
+                <span>Institution</span>
+                <strong>
+                    {{ attestation["institution"] }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span>Date de réussite</span>
+                <strong>
+                    {{ attestation["date_reussite"] }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span>Numéro</span>
+                <strong>
+                    {{ attestation["numero"] }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        {% if attestation["description"] %}
+
+        <p class="description">
+            {{ attestation["description"] }}
+        </p>
+
+        {% endif %}
+
+
+        <div class="document">
+
+            {% set extension = attestation["fichier"].split(".")[-1].lower() %}
+
+            {% if extension in ["jpg", "jpeg", "png", "webp"] %}
+
+                <img
+                    src="{{ url_for('fichier', filename=attestation['fichier']) }}"
+                    alt="Attestation de {{ attestation['nom'] }}"
+                >
+
+            {% else %}
+
+                <iframe
+                    src="{{ url_for('fichier', filename=attestation['fichier']) }}">
+                </iframe>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="verification">
+
+            <div class="verification-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Document numérique
+                </strong>
+
+                <p>
+                    Cette page correspond directement
+                    à l'attestation publiée sur DIPLÔME.CD.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer class="certificate-footer">
+
+        DIPLÔME.CD
+        <span>•</span>
+        Plateforme numérique de certification
+
+    </footer>
+
+</div>
+
+{% else %}
+
+<div class="not-found">
+
+    <div class="logo">
+        DIPLÔME<span>.CD</span>
+    </div>
+
+    <h1>
+        Attestation introuvable
+    </h1>
+
+    <p>
+        Le lien utilisé ne correspond à aucune
+        attestation publiée.
+    </p>
+
+    <a
+        href="{{ url_for('index') }}"
+        class="btn primary">
+
+        Retour à l'accueil
+
+    </a>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administration - DIPLÔME.CD</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        DIPLÔME<span>.CD</span>
+    </div>
+
+    <div class="admin-navigation">
+
+        <a href="{{ url_for('publier') }}"
+           class="btn primary small">
+            + Publier
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+            Déconnexion
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+    <div class="dashboard-title">
+
+        <p class="eyebrow">
+            ESPACE SÉCURISÉ
+        </p>
+
+        <h1>
+            Administration
+        </h1>
+
+        <p>
+            Gérez vos attestations publiées.
+        </p>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="success">
+                    ✓ {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    {% if attestations %}
+
+        <div class="cards">
+
+            {% for attestation in attestations %}
+
+            <div class="attestation-card">
+
+                <div>
+
+                    <div class="status">
+                        PUBLIÉE
+                    </div>
+
+                    <h2>
+                        {{ attestation["nom"] }}
+                    </h2>
+
+                    <p>
+                        {{ attestation["formation"] }}
+                    </p>
+
+                    <p class="number">
+                        {{ attestation["numero"] }}
+                    </p>
+
+                </div>
+
+
+                <div class="card-actions">
+
+                    <a
+                        href="{{ url_for('attestation', token=attestation['token'], _external=True) }}"
+                        target="_blank"
+                        class="btn secondary small">
+
+                        Voir
+
+                    </a>
+
+
+                    <button
+                        class="btn primary small"
+                        onclick="copyLink('{{ url_for('attestation', token=attestation['token'], _external=True) }}')">
+
+                        🔗 Copier le lien
+
+                    </button>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('supprimer', attestation_id=attestation['id']) }}"
+                        onsubmit="return confirm('Supprimer cette attestation ?');">
+
+                        <button
+                            type="submit"
+                            class="delete">
+
+                            Supprimer
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ◇
+            </div>
+
+            <h2>
+                Aucune attestation
+            </h2>
+
+            <p>
+                Commencez par publier votre première attestation.
+            </p>
+
+            <a
+                href="{{ url_for('publier') }}"
+                class="btn primary">
+
+                Publier une attestation
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+
+<script>
+
+function copyLink(link) {
+
+    navigator.clipboard.writeText(link)
+        .then(function() {
+
+            alert("Lien copié avec succès !");
+
+        })
+        .catch(function() {
+
+            prompt(
+                "Copiez ce lien :",
+                link
+            );
+
+        });
+
+}
+
+</script>
+
+</body>
+</html>

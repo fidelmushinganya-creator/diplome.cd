@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Publier - DIPLÔME.CD</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        DIPLÔME<span>.CD</span>
+    </div>
+
+    <a
+        href="{{ url_for('admin') }}"
+        class="back-link">
+
+        ← Tableau de bord
+
+    </a>
+
+</header>
+
+
+<main class="form-page">
+
+    <div class="form-header">
+
+        <p class="eyebrow">
+            ADMINISTRATION
+        </p>
+
+        <h1>
+            Publier une attestation
+        </h1>
+
+        <p>
+            Remplissez les informations puis ajoutez
+            le fichier de l'attestation.
+        </p>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="publication-form">
+
+
+        <label>
+            Nom du bénéficiaire
+        </label>
+
+        <input
+            type="text"
+            name="nom"
+            placeholder="Exemple : Jean KABONGO"
+            required
+        >
+
+
+        <label>
+            Numéro de l'attestation
+        </label>
+
+        <input
+            type="text"
+            name="numero"
+            placeholder="Exemple : DPL-2026-0001"
+            required
+        >
+
+
+        <label>
+            Formation
+        </label>
+
+        <input
+            type="text"
+            name="formation"
+            placeholder="Exemple : Informatique"
+            required
+        >
+
+
+        <label>
+            Institution
+        </label>
+
+        <input
+            type="text"
+            name="institution"
+            placeholder="Nom de l'institution"
+            required
+        >
+
+
+        <label>
+            Date de réussite
+        </label>
+
+        <input
+            type="date"
+            name="date_reussite"
+            required
+        >
+
+
+        <label>
+            Description
+        </label>
+
+        <textarea
+            name="description"
+            rows="4"
+            placeholder="Informations supplémentaires..."></textarea>
+
+
+        <label>
+            Fichier de l'attestation
+        </label>
+
+        <div class="upload-box">
+
+            <input
+                type="file"
+                name="fichier"
+                accept=".jpg,.jpeg,.png,.webp,.pdf"
+                required
+            >
+
+            <p>
+                JPG, PNG, WEBP ou PDF — maximum 20 MB
+            </p>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="btn primary full">
+
+            Publier l'attestation
+
+        </button>
+
+    </form>
+
+</main>
+
+</body>
+</html>
