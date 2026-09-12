@@ -287,10 +287,9 @@ def inject_globals():
         "site_name": "DIPLÔME.CD"
     }
 
+init_database()
 
 if __name__ == "__main__":
-
-    init_database()
 
     app.run(
         host="0.0.0.0",
